@@ -1,0 +1,86 @@
+﻿@model Store.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    SelectList categories = new SelectList(ViewBag.Categories, "Category_ID", "Category_Name");
+    SelectList colors = new SelectList(Enum.GetValues(typeof(Color)));
+    SelectList Sizes = new SelectList(Enum.GetValues(typeof(Size)));
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-lg-12 col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Product_ID" />
+            <div class="form-group">
+                <label asp-for="Product_Name" class="control-label"></label>
+                <input asp-for="Product_Name" class="form-control" />
+                <span asp-validation-for="Product_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category_ID" class="control-label"></label>
+                <select asp-for="Category_ID" class="form-control" asp-items="categories"></select>
+                <span asp-validation-for="Category_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product_Price" class="control-label"></label>
+                <input asp-for="Product_Price" class="form-control" />
+                <span asp-validation-for="Product_Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product_Size" class="control-label"></label>
+                <select asp-for="Product_Size" class="form-control" asp-items="Sizes"></select>
+                <span asp-validation-for="Product_Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product_Color" class="control-label"></label>
+                <select asp-for="Product_Color" class="form-control" asp-items="colors"></select>
+                <span asp-validation-for="Product_Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adding_Date" class="control-label"></label>
+                <input asp-for="Adding_Date" class="form-control" />
+                <span asp-validation-for="Adding_Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stored_Quantity" class="control-label"></label>
+                <input asp-for="Stored_Quantity" class="form-control" />
+                <span asp-validation-for="Stored_Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="imgs-edit">
+                    @foreach (var item in Model.ProductsImages)
+                    {
+                        <div class="img-wrap">
+                            <a asp-area="Admin" asp-action="EditImages" asp-route-id="@item.ID" onclick="Remove(event)">
+                                <span class="close">&times;</span>
+                            </a>
+                            <img src="~/images/Products/@item.Image" width="100" height="100" />
+                        </div>
+                    }
+                    <label for="ProductGallary" class="control-label"></label>
+                    <input type="file" class="form-control" name="ProductGallary" id="ProductGallary" multiple accept="image/*" />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

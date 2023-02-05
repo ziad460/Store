@@ -1,0 +1,118 @@
+﻿@model Store.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    int counter = 0;
+}
+
+<div class="Details-Header">
+    <h1> @Model.Product_Name's Details </h1>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 col-sm-12 bg-primary">
+            <div class="product-info">
+                <h3>Number Of Sales</h3>
+                <p>150</p>
+            </div>
+            <a href="" class="product-info-small-box">
+                More Info
+                <i class="icon-long-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 bg-success">
+            <div class="product-info">
+                <h3>Number Of Sales</h3>
+                <p>150</p>
+            </div>
+            <a href="" class="product-info-small-box">
+                More Info
+                <i class="icon-long-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 bg-warning">
+            <div class="product-info">
+                <h3>Number Of Sales</h3>
+                <p>150</p>
+            </div>
+            <a href="" class="product-info-small-box">
+                More Info
+                <i class="icon-long-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 bg-danger">
+            <div class="product-info">
+                <h3>Number Of Sales</h3>
+                <p>150</p>
+            </div>
+            <a href="" class="product-info-small-box">
+                More Info
+                <i class="icon-long-arrow-right"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<br />
+
+<table class="table table-bordered table-striped table-responsive" style="margin-top:20px">
+    <tr>
+        <th>Product ID</th>
+        <td>@Model.Product_ID</td>
+    </tr>
+    <tr>
+        <th>Product Name</th>
+        <td>@Model.Product_Name</td>
+    </tr>
+    <tr>
+        <th>Product Price</th>
+        <td>@Model.Product_Price</td>
+    </tr>
+    <tr>
+        <th>Product Color</th>
+        <td>@Model.Product_Color</td>
+    </tr>
+    <tr>
+        <th>Product Size</th>
+        <td>@Model.Product_Size</td>
+    </tr>
+    <tr>
+        <th>Product Description</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Product Category</th>
+        <td>@Model.Category.Category_Name</td>
+    </tr>
+    <tr>
+        <th>Available Quantity</th>
+        <td>@Model.Stored_Quantity</td>
+    </tr>
+    <tr>
+        <th>Nubmer Of Sales</th>
+        <td>@Model.Popularity</td>
+    </tr>
+    <tr>
+        <th>Product Images</th>
+        <td>
+            <div class="container-fluid">
+                <div class="row" id="gallary">
+                    @foreach (var item in Model.ProductsImages)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-12">
+                            <img src="~/images/Products/@item.Image" class="detailsimage" alt="Product Image" data-target="#carouselExample" data-slide-to="@{counter++;}"/>
+                        </div>
+                    }
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

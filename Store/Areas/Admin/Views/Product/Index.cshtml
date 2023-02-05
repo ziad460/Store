@@ -1,0 +1,47 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Web.Common
+
+@model IPagedList<Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="AddAndSearch">
+    @using (Html.BeginForm("Search", "Product", FormMethod.Get, new { style = "display:flex" }))
+    {
+        <input type="number" placeholder=" Search By ID" name="search" class="form-control" required/>
+        <input type="submit" value="Search" class="btn btn-primary" />
+    }
+    <a asp-area="Admin" asp-action="Add" asp-controller="Product" class="btn btn-primary">ADD Product</a>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ProductForAdmin">
+                    <div>
+                        <h3>ID : @item.Product_ID</h3>
+                    </div>
+                    <div style="overflow:hidden ; white-space:nowrap ; text-overflow:ellipsis">
+                        <h3>@item.Product_Name</h3>
+                    </div>
+                    <div>
+                        <img src="~/images/Products/@item.ProductsImages[0].Image" width="200" height="200" />
+                    </div>
+                    <div style="display:flex ; justify-content:center">
+                        <a asp-area="Admin" asp-action="Details" asp-controller="Product" asp-route-id="@item.Product_ID" class="btn btn-primary" style="margin:5px">Details</a>
+                        <a asp-area="Admin" asp-action="Edit" asp-controller="Product" asp-route-id="@item.Product_ID" class="btn btn-primary" style="margin:5px">Edit</a>
+                        <a asp-area="Admin" asp-action="Delete" asp-controller="Product" asp-route-id="@item.Product_ID" class="btn btn-danger" style="margin:5px" onclick="Remove(this , event)">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="flex-c-m flex-w w-full p-t-45">
+    @Html.PagedListPager(Model, Page => Url.Action("Index" , new { Page = Page })
+        , new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4 })
+</div>
